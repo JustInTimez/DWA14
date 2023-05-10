@@ -1,45 +1,45 @@
 import {
   css,
   html,
-  LitElement
+  LitElement,
 } from "https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js";
 import { store, increment, decrement } from "../model/store.js";
 
 class Counter extends LitElement {
   static styles = css`
     .counter {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
     }
 
     .counter-value {
-        font-size: 6rem;
-        font-weight: 900;
-        color: var(--color-white);
+      font-size: 6rem;
+      font-weight: 900;
+      color: var(--color-white);
     }
 
     .counter-actions {
-        display: flex;
-        margin-top: 1rem;
+      display: flex;
+      margin-top: 1rem;
     }
 
     button {
-        background-color: var(--color-medium-grey);
-        color: var(--color-light-grey);
-        font-size: 2rem;
-        padding: 1rem 2rem;
-        border: none;
-        border-radius: 4px;
-        margin: 0 0.5rem;
-        cursor: pointer;
-        transition: background-color 0.3s;
+      background-color: var(--color-medium-grey);
+      color: var(--color-light-grey);
+      font-size: 2rem;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 4px;
+      margin: 0 0.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
     }
 
     button:hover {
-        background-color: var(--color-light-grey);
+      background-color: var(--color-light-grey);
     }
   `;
 
@@ -65,10 +65,12 @@ class Counter extends LitElement {
 
   render() {
     return html`
-      <div>
-        <span>Counter Value: ${this.value}</span>
-        <button @click=${this.handleIncrement}>Increment</button>
-        <button @click=${this.handleDecrement}>Decrement</button>
+      <div class="counter">
+        <span class="counter-value">Counter Value: ${this.value}</span>
+        <div class="counter-actions">
+          <button @click=${this.handleIncrement}>+</button>
+          <button @click=${this.handleDecrement}>-</button>
+        </div>
       </div>
     `;
   }
