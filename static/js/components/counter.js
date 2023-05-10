@@ -1,79 +1,31 @@
-import {
-  css,
-  html,
-  LitElement,
-} from "https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js";
-import { store, increment, decrement } from "../model/store.js";
+import { html, css, LitElement } from "lit";
 
 class Counter extends LitElement {
   static styles = css`
     .counter {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-    }
-
-    .counter-value {
-      font-size: 6rem;
-      font-weight: 900;
-      color: var(--color-white);
-    }
-
-    .counter-actions {
-      display: flex;
-      margin-top: 1rem;
-    }
-
-    button {
-      background-color: var(--color-medium-grey);
-      color: var(--color-light-grey);
-      font-size: 2rem;
-      padding: 1rem 2rem;
-      border: none;
-      border-radius: 4px;
-      margin: 0 0.5rem;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    button:hover {
-      background-color: var(--color-light-grey);
+      text-align: center;
+      font-size: 4rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
     }
   `;
 
   static properties = {
-    value: { type: Number },
+    count: { type: Number },
+    min: { type: Number },
+    max: { type: Number },
   };
 
   constructor() {
     super();
-    this.value = store.getState().value;
-    store.subscribe(() => {
-      this.value = store.getState().value;
-    });
-  }
-
-  handleIncrement() {
-    store.dispatch(increment());
-  }
-
-  handleDecrement() {
-    store.dispatch(decrement());
+    this.count = 0;
+    this.min = 0;
+    this.max = 10;
   }
 
   render() {
-    return html`
-      <div class="counter">
-        <span class="counter-value">Counter Value: ${this.value}</span>
-        <div class="counter-actions">
-          <button @click=${this.handleIncrement}>+</button>
-          <button @click=${this.handleDecrement}>-</button>
-        </div>
-      </div>
-    `;
+    return html` <div class="counter">${this.count}</div> `;
   }
 }
 
-customElements.define("counter-component", Counter);
+customElements.define("tally-counter", Counter);
