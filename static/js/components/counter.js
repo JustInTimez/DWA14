@@ -1,4 +1,4 @@
-import { html, css, LitElement } from "lit";
+import { html, css, LitElement } from "../../libs/lit-html.js";
 
 class Counter extends LitElement {
   static styles = css`

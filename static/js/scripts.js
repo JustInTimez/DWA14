@@ -1,4 +1,4 @@
-import { html, css, LitElement } from "https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js";
+import { html, css, LitElement } from "../libs/lit-html.js";
 
 class TallyApp extends LitElement {
   static styles = css`
@@ -29,7 +29,7 @@ class TallyApp extends LitElement {
 
   constructor() {
     super();
-    this.count = 0;
+    this.count = 5;
     this.min = 0;
     this.max = 10;
   }

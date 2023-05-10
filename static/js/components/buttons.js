@@ -1,4 +1,4 @@
-import { html, css, LitElement } from "lit";
+import { html, css, LitElement } from "../../libs/lit-html.js";
 
 class Buttons extends LitElement {
   static styles = css`
@@ -28,8 +28,14 @@ class Buttons extends LitElement {
   }
 
   render() {
+    const buttonsClasses = {
+      buttons: true,
+      'minimum-reached': this.count === this.min,
+      'maximum-reached': this.count === this.max
+    };
+  
     return html`
-      <div class="buttons">
+      <div class=${classMap(buttonsClasses)}>
         <button @click=${this.decrement} ?disabled=${this.count <= this.min}>
           -
         </button>
