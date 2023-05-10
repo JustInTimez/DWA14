@@ -62,3 +62,36 @@ class DecrementButton extends LitElement {
 }
 
 customElements.define("decrement-button", DecrementButton);
+
+class ResetButton extends LitElement {
+    static styles = css`
+        button {
+            background-color: var(--color-blue);
+            color: var(--color-white);
+            font-size: 1.5rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: var(--color-dark-blue);
+        }
+    `;
+
+    handleClick() {
+        store.dispatch(reset());
+    }
+
+    render() {
+        return html`
+        <button @click=${this.handleClick}>
+            Reset
+        </button>
+        `;
+    }
+}
+
+customElements.define('reset-button', ResetButton)
