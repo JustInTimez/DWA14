@@ -5,18 +5,24 @@ class CounterComponent extends LitElement {
     .counter {
       font-size: 48px;
       text-align: center;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
     }
 
     .minimum {
-      color: red;
+      color: #ff5252;
+      background-color: #ffecec;
     }
 
     .normal {
-      color: green;
+      color: #4caf50;
+      background-color: #e8f5e9;
     }
 
     .maximum {
-      color: yellow;
+      color: #ffd600;
+      background-color: #fff9c4;
     }
   `;
 
