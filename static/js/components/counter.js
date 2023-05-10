@@ -1,31 +1,68 @@
-import { html, css, LitElement } from "../../libs/lit-html.js";
+import { html, css, LitElement } from "https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js";
 
-class Counter extends LitElement {
+class CounterComponent extends LitElement {
   static styles = css`
     .counter {
+      font-size: 48px;
       text-align: center;
-      font-size: 4rem;
-      font-weight: bold;
-      margin-bottom: 2rem;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .minimum {
+      color: #ff5252;
+      background-color: #ffecec;
+    }
+
+    .normal {
+      color: #4caf50;
+      background-color: #e8f5e9;
+    }
+
+    .maximum {
+      color: #ffd600;
+      background-color: #fff9c4;
     }
   `;
 
   static properties = {
-    count: { type: Number },
-    min: { type: Number },
-    max: { type: Number },
+    counter: { type: Number },
   };
 
   constructor() {
     super();
-    this.count = 0;
-    this.min = 0;
-    this.max = 10;
+    this.counter = 5; // Initial counter value
+  }
+
+  incrementCounter() {
+    if (this.counter < 10) {
+      this.counter++;
+    }
+  }
+
+  decrementCounter() {
+    if (this.counter > 0) {
+      this.counter--;
+    }
   }
 
   render() {
-    return html` <div class="counter">${this.count}</div> `;
+    let counterClass;
+    if (this.counter === 0) {
+      counterClass = "minimum";
+    } else if (this.counter >= 10) {
+      counterClass = "maximum";
+    } else {
+      counterClass = "normal";
+    }
+
+    return html`
+      <div class="counter ${counterClass}">${this.counter}</div>
+      <button @click=${this.decrementCounter}>-</button>
+      <button @click=${this.incrementCounter}>+</button>
+    `;
   }
 }
 
-customElements.define("tally-counter", Counter);
+customElements.define("counter-component", CounterComponent);

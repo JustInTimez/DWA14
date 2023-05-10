@@ -1,70 +1,52 @@
-import { html, css, LitElement } from "../../libs/lit-html.js";
+import { css, LitElement } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js';
 
-class Buttons extends LitElement {
+class ButtonsComponent extends LitElement {
   static styles = css`
-    .buttons {
+    .button-container {
       display: flex;
       justify-content: center;
+      align-items: center;
+      margin-top: 20px;
     }
 
     button {
-      font-size: 2rem;
-      padding: 0.5rem 1rem;
-      margin: 0 0.5rem;
+      font-size: 24px;
+      margin: 0 5px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      background-color: #4285f4; /* Blue */
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #3367d6; /* Darker Blue */
+    }
+
+    button:active {
+      background-color: #2454b4; /* Even Darker Blue */
     }
   `;
 
-  static properties = {
-    count: { type: Number },
-    min: { type: Number },
-    max: { type: Number },
-  };
-
   constructor() {
     super();
-    this.count = 0;
-    this.min = 0;
-    this.max = 10;
+    this.addEventListener("click", this.handleClick);
   }
 
-  render() {
-    const buttonsClasses = {
-      buttons: true,
-      'minimum-reached': this.count === this.min,
-      'maximum-reached': this.count === this.max
-    };
+  handleClick(event) {
+    const target = event.target;
+    if (target.tagName === "BUTTON") {
+      const action = target.textContent;
+      if (action === "-") {
+        this.dispatchEvent(new CustomEvent("decrement"));
+      } else if (action === "+") {
+        this.dispatchEvent(new CustomEvent("increment"));
+      }
+    }
+  }
   
-    return html`
-      <div class=${classMap(buttonsClasses)}>
-        <button @click=${this.decrement} ?disabled=${this.count <= this.min}>
-          -
-        </button>
-        <button @click=${this.increment} ?disabled=${this.count >= this.max}>
-          +
-        </button>
-        <button @click=${this.reset}>Reset</button>
-      </div>
-    `;
-  }
-
-  increment() {
-    if (this.count < this.max) {
-      this.count++;
-      this.requestUpdate();
-    }
-  }
-
-  decrement() {
-    if (this.count > this.min) {
-      this.count--;
-      this.requestUpdate();
-    }
-  }
-
-  reset() {
-    this.count = this.min;
-    this.requestUpdate();
-  }
 }
 
-customElements.define("tally-buttons", Buttons);
+customElements.define('buttons-component', ButtonsComponent);
