@@ -1,26 +1,77 @@
 import {
-  LitElement,
+  css,
   html,
+  LitElement
 } from "https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js";
+import { store, increment, decrement } from "../model/store.js";
 
-const Counter = () => {
-  let value = 0;
-  let state = "Normal";
+class Counter extends LitElement {
+  static styles = css`
+    .counter {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
 
-  const increment = () => {
-    
+    .counter-value {
+        font-size: 6rem;
+        font-weight: 900;
+        color: var(--color-white);
+    }
+
+    .counter-actions {
+        display: flex;
+        margin-top: 1rem;
+    }
+
+    button {
+        background-color: var(--color-medium-grey);
+        color: var(--color-light-grey);
+        font-size: 2rem;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 4px;
+        margin: 0 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: var(--color-light-grey);
+    }
+  `;
+
+  static properties = {
+    value: { type: Number },
   };
 
-  const decrement = () => {
-    
-  };
+  constructor() {
+    super();
+    this.value = store.getState().value;
+    store.subscribe(() => {
+      this.value = store.getState().value;
+    });
+  }
 
-  return html` add my counter logic here? `;
-};
+  handleIncrement() {
+    store.dispatch(increment());
+  }
 
-// Create styles later...
-Counter.styles = css`
-  add my counter styles here?
-`;
+  handleDecrement() {
+    store.dispatch(decrement());
+  }
+
+  render() {
+    return html`
+      <div>
+        <span>Counter Value: ${this.value}</span>
+        <button @click=${this.handleIncrement}>Increment</button>
+        <button @click=${this.handleDecrement}>Decrement</button>
+      </div>
+    `;
+  }
+}
 
 customElements.define("counter-component", Counter);
